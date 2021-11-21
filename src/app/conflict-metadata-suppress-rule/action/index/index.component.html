@@ -1,24 +1,69 @@
-<div class="container">
-  <h1>Angular 12 CRUD Example - ItSolutionStuff.com</h1>
-
-  <a href="#" routerLink="/conflict-metadata-rule/create" class="btn btn-success">Create New Rule</a>
-
-  <table class="table table-bordered">
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Body</th>
-      <th width="220px">Action</th>
-    </tr>
-    <tr *ngFor="let rule of rules">
-      <td>{{ rule.id }}</td>
-      <td>{{ rule.title }}</td>
-      <td>{{ rule.body }}</td>
-      <td>
-        <a href="#" [routerLink]="['/conflict-metadata-rule/', rule.id, 'view']" class="btn btn-info">View</a>
-        <a href="#" [routerLink]="['/conflict-metadata-rule/', rule.id, 'edit']" class="btn btn-primary">Edit</a>
-        <button type="button" (click)="deleteRule(rule.id)" class="btn btn-danger">Delete</button>
-      </td>
-    </tr>
-  </table>
+<div class="container p-3">
+  <div class="row pb-2">
+    <div class="col-10 text-left"><h4>Suppress Message Rules</h4></div>
+    <div class="col-2">
+      <a
+        href="#"
+        routerLink="/conflict-metadata-rule/create"
+        class="btn btn-success"
+        >Create New Rule</a
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <tr>
+          <th>Rule Id</th>
+          <th>Alert Id</th>
+          <th>Field Name</th>
+          <th>Conflict Code</th>
+          <th>Suppress</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Active</th>
+          <th colspan="4">Action</th>
+        </tr>
+        <tr *ngFor="let rule of rules">
+          <td>{{ rule.prog_rule_sgk }}</td>
+          <td>{{ rule.alert_id }}</td>
+          <td>{{ rule.field_name }}</td>
+          <td>{{ rule.conflict_code }}</td>
+          <td>{{ rule.supress_message }}</td>
+          <td>{{ rule.eff_start_dt }}</td>
+          <td>{{ rule.eff_end_dt }}</td>
+          <td>{{ rule.active_ind }}</td>
+          <td colspan="4">
+            <a
+              href="#"
+              [routerLink]="[
+                '/conflict-metadata-rule/',
+                rule.prog_rule_sgk,
+                'view'
+              ]"
+              class="btn btn-info"
+              >View</a
+            >
+            <a
+              href="#"
+              [routerLink]="[
+                '/conflict-metadata-rule/',
+                rule.prog_rule_sgk,
+                'edit'
+              ]"
+              class="btn btn-primary"
+              >Edit</a
+            >
+            <button
+              type="button"
+              (click)="deleteRule(rule.prog_rule_sgk)"
+              class="btn btn-danger"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

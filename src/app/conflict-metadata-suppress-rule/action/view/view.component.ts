@@ -6,10 +6,9 @@ import { RuleModel } from '../../rule.model';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.css'],
 })
 export class ViewComponent implements OnInit {
-
   id: number;
   rule: RuleModel;
 
@@ -17,13 +16,15 @@ export class ViewComponent implements OnInit {
     public ruleService: RuleService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['postId'];
+    this.id = this.route.snapshot.params['ruleId'];
 
-    this.ruleService.find(this.id).subscribe((data: RuleModel) => {
-      this.rule = data;
+    this.ruleService.find(this.id).subscribe((data: RuleModel[]) => {
+      if (data) {
+        this.rule = data[0];
+      }
     });
   }
 }

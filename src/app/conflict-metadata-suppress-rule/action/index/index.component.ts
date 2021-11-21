@@ -4,25 +4,24 @@ import { RuleModel } from '../../rule.model';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.css'],
 })
 export class IndexComponent implements OnInit {
-
   rules: RuleModel[] = [];
 
-  constructor(public ruleService: RuleService) { }
+  constructor(public ruleService: RuleService) {}
 
   ngOnInit(): void {
-    this.ruleService.getAll().subscribe((data: RuleModel[])=>{
+    this.ruleService.getAll().subscribe((data: RuleModel[]) => {
       this.rules = data;
       console.log(this.rules);
-    })
+    });
   }
 
-  deleteRule(id:number){
-    this.ruleService.delete(id).subscribe(res => {
-         this.rules = this.rules.filter(item => item.id !== id);
-         console.log('Rule deleted successfully!');
-    })
+  deleteRule(id: number) {
+    this.ruleService.delete(id).subscribe((res) => {
+      this.rules = this.rules.filter((item) => item.prog_rule_sgk !== id);
+      console.log('Rule deleted successfully!');
+    });
   }
 }

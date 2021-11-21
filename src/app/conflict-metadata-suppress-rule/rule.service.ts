@@ -6,64 +6,55 @@ import { catchError } from 'rxjs/operators';
 import { RuleModel } from './rule.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RuleService {
-
-  private apiURL = "https://jsonplaceholder.typicode.com";
+  private apiURL =
+    'http://localhost:13144/microservices/conflictmetadatamgntapp';
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
+      'Content-Type': 'application/json',
+    }),
+  };
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<any> {
+    return this.httpClient
+      .get(this.apiURL + '/rule')
 
-    return this.httpClient.get(this.apiURL + '/posts/')
-
-      .pipe(
-        catchError(this.errorHandler)
-      )
+      .pipe(catchError(this.errorHandler));
   }
 
   create(rule: RuleModel): Observable<any> {
+    return this.httpClient
+      .post(this.apiURL + '/rule', JSON.stringify(rule), this.httpOptions)
 
-    return this.httpClient.post(this.apiURL + '/posts/', JSON.stringify(rule), this.httpOptions)
-
-      .pipe(
-        catchError(this.errorHandler)
-      )
+      .pipe(catchError(this.errorHandler));
   }
 
   find(id: number): Observable<any> {
+    console.log(id);
+    return this.httpClient
+      .get(this.apiURL + '/rule/' + id)
 
-    return this.httpClient.get(this.apiURL + '/posts/' + id)
-
-      .pipe(
-        catchError(this.errorHandler)
-      )
+      .pipe(catchError(this.errorHandler));
   }
 
   update(id: number, rule: RuleModel): Observable<any> {
+    return this.httpClient
+      .put(this.apiURL + '/rule/' + id, JSON.stringify(rule), this.httpOptions)
 
-    return this.httpClient.put(this.apiURL + '/posts/' + id, JSON.stringify(rule), this.httpOptions)
-
-      .pipe(
-        catchError(this.errorHandler)
-      )
+      .pipe(catchError(this.errorHandler));
   }
 
   delete(id: number) {
-    return this.httpClient.delete(this.apiURL + '/posts/' + id, this.httpOptions)
+    return this.httpClient
+      .delete(this.apiURL + '/rule/' + id, this.httpOptions)
 
-      .pipe(
-        catchError(this.errorHandler)
-      )
+      .pipe(catchError(this.errorHandler));
   }
-
 
   errorHandler(error: any) {
     let errorMessage = '';
