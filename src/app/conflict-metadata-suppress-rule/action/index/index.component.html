@@ -1,69 +1,76 @@
-<div class="container p-3">
-  <div class="row pb-2">
-    <div class="col-10 text-left"><h4>Suppress Message Rules</h4></div>
-    <div class="col-2">
-      <a
-        href="#"
-        routerLink="/conflict-metadata-rule/create"
-        class="btn btn-success"
-        >Create New Rule</a
-      >
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <table class="table table-bordered">
-        <tr>
-          <th>Rule Id</th>
-          <th>Alert Id</th>
-          <th>Field Name</th>
-          <th>Conflict Code</th>
-          <th>Suppress</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Active</th>
-          <th colspan="4">Action</th>
-        </tr>
-        <tr *ngFor="let rule of rules">
-          <td>{{ rule.prog_rule_sgk }}</td>
-          <td>{{ rule.alert_id }}</td>
-          <td>{{ rule.field_name }}</td>
-          <td>{{ rule.conflict_code }}</td>
-          <td>{{ rule.supress_message }}</td>
-          <td>{{ rule.eff_start_dt }}</td>
-          <td>{{ rule.eff_end_dt }}</td>
-          <td>{{ rule.active_ind }}</td>
-          <td colspan="4">
-            <a
-              href="#"
-              [routerLink]="[
-                '/conflict-metadata-rule/',
-                rule.prog_rule_sgk,
-                'view'
-              ]"
-              class="btn btn-info"
-              >View</a
-            >
-            <a
-              href="#"
-              [routerLink]="[
-                '/conflict-metadata-rule/',
-                rule.prog_rule_sgk,
-                'edit'
-              ]"
-              class="btn btn-primary"
-              >Edit</a
-            >
-            <button
-              type="button"
-              (click)="deleteRule(rule.prog_rule_sgk)"
-              class="btn btn-danger"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
+<div class="mat-elevation-z8">
+  <mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>Alert Id</mat-label>
+        <input matInput placeholder="Search by Alert #" name="alert_id">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="eff_start_dt" placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="eff_start_dt"></mat-datepicker-toggle>
+        <mat-datepicker #eff_start_dt></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="eff_end_dt" placeholder="End Date">
+        <mat-datepicker-toggle matSuffix [for]="eff_end_dt"></mat-datepicker-toggle>
+        <mat-datepicker #eff_end_dt></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-spinner [style.display]="loading ? 'block' : 'none'"></mat-spinner>
+
+  <mat-table [style.display]="loading === false ? 'block' : 'none'" #table [dataSource]="dataSource" matSort>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <ng-container matColumnDef="prog_rule_sgk">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Rule Id</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.prog_rule_sgk}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="alert_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Alert Id</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.alert_id}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="field_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Field Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.field_name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="conflict_code">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Conflict Code</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.conflict_code}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="supress_message">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Suppress</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.supress_message}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="eff_start_dt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.eff_start_dt}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="eff_end_dt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.eff_end_dt}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="active_ind">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.active_ind}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <button mat-button color="primary"
+          (click)="deleteRule(element.prog_rule_sgk)">
+          <mat-icon>delete</mat-icon>
+        </button> <button mat-button color="primary" (click)="editRule(element.prog_rule_sgk)">
+          <mat-icon>edit</mat-icon>
+        </button> </mat-cell>
+    </ng-container>
+  </mat-table>
+  <mat-paginator #paginator [style.display]="loading === false ? 'block' : 'none'" [pageSize]="5"></mat-paginator>
 </div>

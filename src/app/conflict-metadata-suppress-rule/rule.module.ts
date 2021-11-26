@@ -7,7 +7,7 @@ import { ViewComponent } from './action/view/view.component';
 import { CreateComponent } from './action/create/create.component';
 import { EditComponent } from './action/edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RuleRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class RuleModule { }
