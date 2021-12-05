@@ -12,14 +12,18 @@
 main {
   display: flex;
   flex-direction: column;
-
 }
 
-.my-form {
-  display: flex;
-  flex-direction: column;
+.rule_form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
 
-.my-tab {
-  padding: 200px;
+.rule_form_field {
+  width: 100%;
+}
+
+.mat-toolbar {
+  z-index: 5;
 }

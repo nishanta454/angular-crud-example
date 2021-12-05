@@ -1,168 +1,58 @@
-<div class="container">
-  <h1>Create New Post</h1>
-
-  <a href="#" routerLink="/conflict-metadata-rule/index" class="btn btn-primary"
-    >Back</a
-  >
-
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label for="alert_id">Alert Id:</label>
-      <input
-        formControlName="alert_id"
-        id="alert_id"
-        type="text"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.alert_id.touched && f.alert_id.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.alert_id.errors?.required">AlertId is required.</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Create Rule</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="padding-left: 10px">
+    <form class="rule_form">
+      <mat-form-field class="rule_form_field">
+        <mat-label>Alert Id</mat-label>
+        <input matInput placeholder="Alert Id" name="alertId" required>
+        <mat-hint align="end">Must be a number</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Field Name</mat-label>
+        <input matInput placeholder="Field Name" name="fieldName" required>
+        <mat-hint align="end">Must be a character string</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Conflict Code</mat-label>
+        <input matInput placeholder="Conflict Code" name="conflictCode" required>
+        <mat-hint align="end">Must be a number</mat-hint>
+      </mat-form-field>
+      <div style="padding: 10px 0px 10px 0px">
+        <mat-label style="padding-right: 5px; font-weight: 500;">Suppress</mat-label>
+        <mat-radio-group name="suppress">
+          <mat-radio-button value="Y" style="padding-left: 5px" checked="checked">Yes</mat-radio-button>
+          <mat-radio-button value="N" style="padding-left: 5px">No</mat-radio-button>
+        </mat-radio-group>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="field_name">Field Name:</label>
-      <input
-        formControlName="field_name"
-        id="field_name"
-        type="text"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.field_name.touched && f.field_name.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.field_name.errors?.required">FieldName is required.</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="conflict_code">Conflict Code:</label>
-      <input
-        formControlName="conflict_code"
-        id="conflict_code"
-        type="text"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label>Suppress:</label>
-      <input
-        formControlName="supress_message"
-        id="supress_message"
-        type="radio"
-        value="Y"
-        checked="checked"
-        class="form-control"
-      /><label>Yes</label><br />
-      <input
-        formControlName="supress_message"
-        id="supress_message"
-        type="radio"
-        value="N"
-        class="form-control"
-      /><label>No</label>
-    </div>
-    <div class="form-group">
-      <label for="suppress_reason">Reason:</label>
-      <input
-        formControlName="suppress_reason"
-        id="suppress_reason"
-        type="text"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="message_copy">Message Copy:</label>
-      <input
-        formControlName="message_copy"
-        id="message_copy"
-        type="text"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group">
-      <label for="eff_start_dt">Start Date:</label>
-      <input
-        formControlName="eff_start_dt"
-        id="eff_start_dt"
-        type="text"
-        placeholder="yyyy/mm/dd"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.eff_start_dt.touched && f.eff_start_dt.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.eff_start_dt.errors?.required">
-          Start Date is required.
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="eff_end_dt">End Date:</label>
-      <input
-        formControlName="eff_end_dt"
-        id="eff_end_dt"
-        type="text"
-        placeholder="yyyy/mm/dd"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.eff_end_dt.touched && f.eff_end_dt.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.eff_end_dt.errors?.required">End Date is required.</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="active_ind">Field Name:</label>
-      <input
-        formControlName="active_ind"
-        id="active_ind"
-        type="text"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.active_ind.touched && f.active_ind.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.active_ind.errors?.required">FieldName is required.</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="email_ids">Field Name:</label>
-      <input
-        formControlName="email_ids"
-        id="email_ids"
-        type="text"
-        class="form-control"
-      />
-      <div
-        *ngIf="f.email_ids.touched && f.email_ids.invalid"
-        class="alert alert-danger"
-      >
-        <div *ngIf="f.email_ids.errors">Invalid email format.</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="body">Body</label>
-      <textarea
-        formControlName="body"
-        id="body"
-        type="text"
-        class="form-control"
-      >
-      </textarea>
-      <div *ngIf="f.body.touched && f.body.invalid" class="alert alert-danger">
-        <div *ngIf="f.body.errors?.required">Body is required.</div>
-      </div>
-    </div>
-
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
-      Submit
-    </button>
-  </form>
-</div>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Suppress Message</mat-label>
+        <textarea matInput placeholder="Ex. It will make customer feel..." name="suppressMessage"></textarea>
+        <mat-hint align="end">Not more than 100 characters</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" name="startDate" placeholder="Start Date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint align="end">Must be greater than the yesterday date</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="picker1" name="endDate" placeholder="End Date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-hint align="end">Must be greater than the current date</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Email Ids</mat-label>
+        <textarea matInput placeholder="Ex. abc@pqr.com, ijk@pqr.com" name="emailIds"></textarea>
+        <mat-hint align="end">Comma Separated Email Ids</mat-hint>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="padding-left: 10px">
+    <button mat-raised-button color="primary">Create</button>
+  </mat-card-actions>
+</mat-card>

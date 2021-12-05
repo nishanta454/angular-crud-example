@@ -29,13 +29,10 @@ export class IndexComponent implements OnInit {
   constructor(private ruleService: RuleService, private router: Router) {}
 
   ngOnInit(): void {
-    /*this.ruleService.getAll().subscribe((data: RuleModel[]) => {
+    this.ruleService.getAll().subscribe((data: RuleModel[]) => {
       this.rules = data;
       console.log(this.rules);
-    });*/
-    this.rules = this.ruleService.getAll()
-    this.dataSource = new MatTableDataSource<any[]>(this.rules);
-    this.loading = false
+    });
   }
 
   deleteRule(id: number) {

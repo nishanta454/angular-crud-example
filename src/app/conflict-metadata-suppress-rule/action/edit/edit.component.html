@@ -1,40 +1,58 @@
-<div class="container">
-  <h1>Update Post</h1>
-
-  <a href="#" routerLink="/conflict-metadata-rule/index" class="btn btn-primary"
-    >Back</a
-  >
-
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- <div class="form-group">
-            <label for="title">Title:</label>
-            <input
-                formControlName="title"
-                id="title"
-                type="text"
-                [(ngModel)]="rule.title"
-                class="form-control">
-            <div *ngIf="f.title.touched && f.title.invalid" class="alert alert-danger">
-                <div *ngIf="f.title.errors?.required">Title is required.</div>
-            </div>
-        </div>
-  
-        <div class="form-group">
-            <label for="body">Body</label>
-            <textarea
-                formControlName="body"
-                id="body"
-                type="text"
-                [(ngModel)]="rule.body"
-                class="form-control">
-            </textarea>
-            <div *ngIf="f.body.touched && f.body.invalid" class="alert alert-danger">
-                <div *ngIf="f.body.errors?.required">Body is required.</div>
-            </div>
-        </div> -->
-
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
-      Update
-    </button>
-  </form>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Edit Rule</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="padding-left: 10px">
+    <form class="rule_form">
+      <mat-form-field class="rule_form_field">
+        <mat-label>Alert Id</mat-label>
+        <input matInput placeholder="Alert Id" name="alertId" required>
+        <mat-hint align="end">Must be a number</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Field Name</mat-label>
+        <input matInput placeholder="Field Name" name="fieldName" required>
+        <mat-hint align="end">Must be a character string</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Conflict Code</mat-label>
+        <input matInput placeholder="Conflict Code" name="conflictCode" required>
+        <mat-hint align="end">Must be a number</mat-hint>
+      </mat-form-field>
+      <div style="padding: 10px 0px 10px 0px">
+        <mat-label style="padding-right: 5px; font-weight: 500;">Suppress</mat-label>
+        <mat-radio-group name="suppress">
+          <mat-radio-button value="Y" style="padding-left: 5px" checked="checked">Yes</mat-radio-button>
+          <mat-radio-button value="N" style="padding-left: 5px">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Suppress Message</mat-label>
+        <textarea matInput placeholder="Ex. It will make customer feel..." name="suppressMessage"></textarea>
+        <mat-hint align="end">Not more than 100 characters</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" name="startDate" placeholder="Start Date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint align="end">Must be greater than the yesterday date</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="picker1" name="endDate" placeholder="End Date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-hint align="end">Must be greater than the current date</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="rule_form_field">
+        <mat-label>Email Ids</mat-label>
+        <textarea matInput placeholder="Ex. abc@pqr.com, ijk@pqr.com" name="emailIds"></textarea>
+        <mat-hint align="end">Comma Separated Email Ids</mat-hint>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions style="padding-left: 10px">
+    <button mat-raised-button color="primary">Create</button>
+  </mat-card-actions>
+</mat-card>

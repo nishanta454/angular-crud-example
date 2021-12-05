@@ -1,53 +1,28 @@
-<div class="container p-3">
-  <div class="row pb-2">
-    <div class="col-10 text-left"><h4>Suppress Rule Detail</h4></div>
-    <div class="col-2">
-      <a
-        href="#"
-        routerLink="/conflict-metadata-rule/index"
-        class="btn btn-primary"
-        >Back to Rules</a
-      >
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6">Rule Id:</div>
-    <div class="col-6">{{ rule.prog_rule_sgk }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Alert Id:</div>
-    <div class="col-6">{{ rule.alert_id }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Field Name:</div>
-    <div class="col-6">{{ rule.field_name }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Conflict Code:</div>
-    <div class="col-6">{{ rule.conflict_code }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Supress:</div>
-    <div class="col-6">{{ rule.supress_message }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Reason:</div>
-    <div class="col-6">{{ rule.suppress_reason }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Message:</div>
-    <div class="col-6">{{ rule.message_copy }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Start Date:</div>
-    <div class="col-6">{{ rule.eff_start_dt }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">End Date:</div>
-    <div class="col-6">{{ rule.eff_end_dt }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">Email Id:</div>
-    <div class="col-6">{{ rule.email_ids }}</div>
-  </div>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Rule Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="padding-left: 10px">
+    <mat-list>
+      <mat-list-item><label>Rule Id: </label>{{ rule.prog_rule_sgk }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Alert Id: </label>{{ rule.alert_id }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Field Name: </label>{{ rule.field_name }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Conflict Code: </label>{{ rule.conflict_code }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Supress: </label>{{ rule.supress_message }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Reason: </label>{{ rule.suppress_reason }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Message: </label>{{ rule.message_copy }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Start Date: </label>{{ rule.eff_start_dt }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>End Date: </label>{{ rule.eff_end_dt }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><label>Email Ids: </label>{{ rule.email_ids }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
