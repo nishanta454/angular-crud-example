@@ -1,76 +1,80 @@
 <div class="mat-elevation-z8">
-  <mat-grid-list cols="3" rowHeight="100px">
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Alert Id</mat-label>
-        <input matInput placeholder="Search by Alert #" name="alert_id">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="eff_start_dt" placeholder="Start Date">
-        <mat-datepicker-toggle matSuffix [for]="eff_start_dt"></mat-datepicker-toggle>
-        <mat-datepicker #eff_start_dt></mat-datepicker>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="eff_end_dt" placeholder="End Date">
-        <mat-datepicker-toggle matSuffix [for]="eff_end_dt"></mat-datepicker-toggle>
-        <mat-datepicker #eff_end_dt></mat-datepicker>
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <form [formGroup]="searchForm" (ngSubmit)="searchRules()">
+    <mat-grid-list cols="4" rowHeight="4:1">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Alert Id</mat-label>
+          <input matInput placeholder="Search by Alert #" formControlName="alertId">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Field Name</mat-label>
+          <input matInput placeholder="Search by Field Name" formControlName="fieldName">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+    </mat-grid-list>
+  </form>
 
   <mat-spinner [style.display]="loading ? 'block' : 'none'"></mat-spinner>
 
-  <mat-table [style.display]="loading === false ? 'block' : 'none'" #table [dataSource]="dataSource" matSort>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <div *ngIf="rules">
+    <mat-table [style.display]="loading === false ? 'block' : 'none'" #table [dataSource]="dataSource">
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-    <ng-container matColumnDef="prog_rule_sgk">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Rule Id</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.prog_rule_sgk}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="alert_id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Alert Id</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.alert_id}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="field_name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Field Name</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.field_name}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="conflict_code">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Conflict Code</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.conflict_code}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="supress_message">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Suppress</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.supress_message}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="eff_start_dt">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.eff_start_dt}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="eff_end_dt">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.eff_end_dt}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="active_ind">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.active_ind}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <button mat-button color="primary"
-          (click)="deleteRule(element.prog_rule_sgk)">
-          <mat-icon>delete</mat-icon>
-        </button> <button mat-button color="primary" (click)="editRule(element.prog_rule_sgk)">
-          <mat-icon>edit</mat-icon>
-        </button> </mat-cell>
-    </ng-container>
-  </mat-table>
-  <mat-paginator #paginator [style.display]="loading === false ? 'block' : 'none'" [pageSize]="5"></mat-paginator>
+      <ng-container matColumnDef="prog_rule_sgk">
+        <mat-header-cell *matHeaderCellDef >Rule Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.prog_rule_sgk}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="alert_id">
+        <mat-header-cell *matHeaderCellDef >Alert Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.alert_id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="field_name">
+        <mat-header-cell *matHeaderCellDef>Field Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.field_name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="conflict_code">
+        <mat-header-cell *matHeaderCellDef>Conflict Code</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.conflict_code}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="supress_message">
+        <mat-header-cell *matHeaderCellDef>Suppress</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.supress_message}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="eff_start_dt">
+        <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.eff_start_dt}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="eff_end_dt">
+        <mat-header-cell *matHeaderCellDef>End Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.eff_end_dt}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="active_ind">
+        <mat-header-cell *matHeaderCellDef>Active</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.active_ind}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <button mat-button color="primary"
+            (click)="deleteRule(element.prog_rule_sgk)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-button color="primary" (click)="editRule(element.prog_rule_sgk)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+    </mat-table>
+  </div>
+  <div *ngIf="!rules">
+    No Record found
+  </div>
 </div>

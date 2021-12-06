@@ -1,0 +1,7 @@
+<div mat-dialog-title>Message</div>
+<mat-dialog-content class="mat-typography">
+  {{data.message}}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [matDialogClose]="data.message" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

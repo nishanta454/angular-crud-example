@@ -1,4 +1,4 @@
-export interface RuleModel {
+export class RuleModel {
   prog_rule_sgk: number;
   alert_id: string;
   field_name: string;

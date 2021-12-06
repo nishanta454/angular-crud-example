@@ -1,3 +1,4 @@
+import { DialogContent } from './dialog/dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,7 +15,8 @@ import { MaterialModule } from '../material.module';
     IndexComponent,
     ViewComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    DialogContent,
   ],
   imports: [
     CommonModule,

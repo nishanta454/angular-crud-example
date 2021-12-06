@@ -10,7 +10,7 @@ import { RuleModel } from './rule.model';
 })
 export class RuleService {
   private apiURL =
-    'http://localhost:13144/microservices/conflictmetadatamgntapp';
+    'http://localhost:3000';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,7 +22,13 @@ export class RuleService {
 
   getAll(): Observable<any> {
     return this.httpClient
-      .get(this.apiURL + '/rule')
+      .get(this.apiURL + '/rules')
+      .pipe(catchError(this.errorHandler));
+  }
+
+  search(alertId: string, fieldName: string): Observable<any> {
+    return this.httpClient
+      .get(this.apiURL + '/rules?1=1'+(alertId?'&alertId='+alertId:'')+(fieldName?'&fieldName='+fieldName:''))
       .pipe(catchError(this.errorHandler));
   }
 
@@ -34,9 +40,7 @@ export class RuleService {
   }
 
   find(id: number): Observable<any> {
-    console.log(id);
-    return this.httpClient
-      .get(this.apiURL + '/rule/' + id)
+    return this.httpClient.get(this.apiURL + '/rule/' + id)
 
       .pipe(catchError(this.errorHandler));
   }
@@ -48,7 +52,7 @@ export class RuleService {
       .pipe(catchError(this.errorHandler));
   }
 
-  delete(id: number) {
+  delete(id: number): Observable<any>  {
     return this.httpClient
       .delete(this.apiURL + '/rule/' + id, this.httpOptions)
 
