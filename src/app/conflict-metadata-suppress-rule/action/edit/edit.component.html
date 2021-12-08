@@ -2,9 +2,16 @@
   <mat-card-header>
     <mat-card-title>Edit Rule</mat-card-title>
   </mat-card-header>
-  <div *ngIf="rule">
+  <div *ngIf="loader == false">
     <form class="rule_form" [formGroup]="form" (ngSubmit)="submit()">
-      <mat-card-content style="padding-left: 10px">
+      <mat-card-content style="padding-left: 10px;">
+        <div style="padding: 10px 0px 10px 0px">
+          <mat-label style="padding-right: 5px; font-weight: 500;">Active</mat-label>
+          <mat-radio-group formControlName="active">
+            <mat-radio-button value="Y" style="padding-left: 5px" checked="checked">Yes</mat-radio-button>
+            <mat-radio-button value="N" style="padding-left: 5px">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
         <mat-form-field class="rule_form_field">
           <mat-label>Alert Id</mat-label>
           <input matInput placeholder="Alert Id" formControlName="alertId" required>
@@ -20,18 +27,6 @@
           <input matInput placeholder="Conflict Code" formControlName="conflictCode" required>
           <mat-hint align="end">Must be a number</mat-hint>
         </mat-form-field>
-        <div style="padding: 10px 0px 10px 0px">
-          <mat-label style="padding-right: 5px; font-weight: 500;">Suppress</mat-label>
-          <mat-radio-group formControlName="suppress">
-            <mat-radio-button value="Y" style="padding-left: 5px" checked="checked">Yes</mat-radio-button>
-            <mat-radio-button value="N" style="padding-left: 5px">No</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <mat-form-field class="rule_form_field">
-          <mat-label>Suppress Reason</mat-label>
-          <textarea matInput placeholder="Ex. It will make customer feel..." formControlName="suppressReason"></textarea>
-          <mat-hint align="end">Not more than 100 characters</mat-hint>
-        </mat-form-field>
         <mat-form-field class="rule_form_field">
           <mat-label>Start Date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="startDate" placeholder="Start Date" required>
@@ -46,6 +41,23 @@
           <mat-datepicker #picker1></mat-datepicker>
           <mat-hint align="end">Must be greater than the current date</mat-hint>
         </mat-form-field>
+        <div style="padding: 10px 0px 10px 0px">
+          <mat-label style="padding-right: 5px; font-weight: 500;">Suppress</mat-label>
+          <mat-radio-group formControlName="suppress" required>
+            <mat-radio-button value="Y" style="padding-left: 5px" checked="checked">Yes</mat-radio-button>
+            <mat-radio-button value="N" style="padding-left: 5px">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field class="rule_form_field">
+          <mat-label>Suppress Reason</mat-label>
+          <textarea matInput placeholder="Ex. It will make customer feel..." formControlName="suppressReason"></textarea>
+          <mat-hint align="end">Not more than 100 characters</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="rule_form_field">
+          <mat-label>Message Copy</mat-label>
+          <textarea matInput placeholder="Ex. It will make customer feel..." formControlName="messageCopy"></textarea>
+          <mat-hint align="end">Not more than 100 characters</mat-hint>
+        </mat-form-field>
         <mat-form-field class="rule_form_field">
           <mat-label>Email Ids</mat-label>
           <textarea matInput placeholder="Ex. abc@pqr.com, ijk@pqr.com" formControlName="emailIds"></textarea>
@@ -53,11 +65,11 @@
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions style="padding-left: 10px">
-        <button mat-raised-button color="primary" type="submit">Create</button>
+        <button mat-raised-button color="basic" type="submit">Create</button>
       </mat-card-actions>
     </form>
   </div>
-  <div *ngIf="!rule">
+  <div *ngIf="loader == true">
     <mat-spinner></mat-spinner>
   </div>
 </mat-card>

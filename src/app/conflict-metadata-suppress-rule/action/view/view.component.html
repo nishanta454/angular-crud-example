@@ -1,28 +1,72 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Rule Details</mat-card-title>
+    <mat-card-title style="font-weight: bold;">Rule Details</mat-card-title>
+    <mat-card-actions *ngIf="!loading" style="align-items: right;">
+      <a href="conflict-metadata-rule/{{ rule.prog_rule_sgk }}/edit" mat-raised-button  color="basic">Edit Rule</a>
+    </mat-card-actions>
   </mat-card-header>
-  <mat-card-content style="padding-left: 10px">
-    <mat-list>
-      <mat-list-item><label>Rule Id: </label>{{ rule.prog_rule_sgk }}</mat-list-item>
+  <mat-card-content>
+    <mat-spinner [style.display]="loading ? 'block' : 'none'"></mat-spinner>
+    <table *ngIf="!loading" style="border-collapse: separate; border-spacing: 0 0.5em;">
+      <tr>
+        <td style='font-weight: bold'>Rule Id: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.prog_rule_sgk }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Alert Id: </label>{{ rule.alert_id }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Alert Id: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.alert_id }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Field Name: </label>{{ rule.field_name }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Field Name: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.field_name }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Conflict Code: </label>{{ rule.conflict_code }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Conflict Code: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.conflict_code }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Supress: </label>{{ rule.supress_message }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Supress: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.supress_message }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Reason: </label>{{ rule.suppress_reason }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Reason: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.suppress_reason }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Message: </label>{{ rule.message_copy }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Message: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.message_copy }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Start Date: </label>{{ rule.eff_start_dt }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>Start Date: </td>
+        <td colspan='2'></td>
+        <td> {{ rule.eff_start_dt }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>End Date: </label>{{ rule.eff_end_dt }}</mat-list-item>
+      <tr>
+        <td style='font-weight: bold'>End Date: </td>
+        <td colspan='2'></td>
+        <td>{{ rule.eff_end_dt }}</td>
+      </tr>
       <mat-divider></mat-divider>
-      <mat-list-item><label>Email Ids: </label>{{ rule.email_ids }}</mat-list-item>
-    </mat-list>
+      <tr>
+        <td style='font-weight: bold'>Email Ids: </td>
+        <td colspan='2'></td>
+        <td>{{ rule.email_ids }}</td>
+      </tr>
+    </table>
   </mat-card-content>
 </mat-card>

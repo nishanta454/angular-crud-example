@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./edit.component.css'],
 })
 export class EditComponent implements OnInit {
+  loader = true
   id: number;
   rule: RuleModel;
   form: FormGroup;
@@ -23,20 +24,17 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['ruleId'];
     this.ruleService.find(this.id).subscribe((data: RuleModel) => {
-      this.rule = data;
-      console.log(data)
-      this.form.setValue({
-        alertId: this.rule.alert_id,
-        fieldName: this.rule.field_name,
-        conflictCode: this.rule.conflict_code,
-        startDate: this.rule.eff_start_dt,
-        endDate: this.rule.eff_end_dt,
-        emailIds: this.rule.email_ids,
-        active: this.rule.active_ind,
-        suppress: this.rule.supress_message,
-        suppressReason: this.rule.suppress_reason,
-        messageCopy: this.rule.message_copy
-      });
+      this.loader = false
+      this.form.get('active')?.setValue(data.active_ind);
+      this.form.get('alertId')?.setValue(data.alert_id);
+      this.form.get('fieldName')?.setValue(data.field_name);
+      this.form.get('conflictCode')?.setValue(data.conflict_code);
+      this.form.get('startDate')?.setValue(new Date(data.eff_start_dt));
+      this.form.get('endDate')?.setValue(new Date(data.eff_end_dt));
+      this.form.get('suppress')?.setValue(data.supress_message);
+      this.form.get('suppressReason')?.setValue(data.suppress_reason);
+      this.form.get('messageCopy')?.setValue(data.message_copy);
+      this.form.get('emailIds')?.setValue(data.email_ids);
     });
 
     this.form = new FormGroup({
@@ -46,7 +44,7 @@ export class EditComponent implements OnInit {
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
       emailIds: new FormControl(''),
-      active: new FormControl(''),
+      active: new FormControl('', [Validators.required]),
       suppress: new FormControl('', [Validators.required]),
       suppressReason: new FormControl(''),
       messageCopy: new FormControl('')
@@ -59,8 +57,7 @@ export class EditComponent implements OnInit {
 
   submit() {
     this.ruleService.update(this.id, this.getRuleModel(this.id)).subscribe(() => {
-      console.log('Rule updated successfully!');
-      this.router.navigateByUrl('conflict-metadata-rule/index');
+      this.router.navigateByUrl('conflict-metadata-rule/'+this.id+'/view');
     });
   }
 

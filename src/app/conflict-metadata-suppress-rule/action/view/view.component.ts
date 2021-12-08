@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RuleService } from '../../rule.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RuleModel } from '../../rule.model';
 
 @Component({
@@ -11,19 +11,22 @@ import { RuleModel } from '../../rule.model';
 export class ViewComponent implements OnInit {
   id: number;
   rule: RuleModel;
+  loading = true;
 
   constructor(
     public ruleService: RuleService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['ruleId'];
 
     this.ruleService.find(this.id).subscribe((data: RuleModel[]) => {
-      if (data) {
+      this.loading = false;
+      if (data && data instanceof Array) {
         this.rule = data[0];
+      } else {
+        this.rule = data;
       }
     });
   }
