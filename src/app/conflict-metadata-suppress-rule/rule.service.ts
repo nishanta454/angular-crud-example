@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { RuleModel } from './rule.model';
+import { RuleModel, SearchRequest } from './rule.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,16 +20,31 @@ export class RuleService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<any> {
+  search(request: SearchRequest): Observable<any> {
     return this.httpClient
-      .get(this.apiURL + '/rules')
+      .get(this.apiURL + '/rules?1=1&' + this.params(request))
       .pipe(catchError(this.errorHandler));
   }
 
-  search(alertId: string, fieldName: string): Observable<any> {
-    return this.httpClient
-      .get(this.apiURL + '/rules?1=1'+(alertId?'&alertId='+alertId:'')+(fieldName?'&fieldName='+fieldName:''))
-      .pipe(catchError(this.errorHandler));
+  params(request: SearchRequest) {
+    const params = []
+    if (request.alertId) {
+      params.push('alertId=' + request.alertId)
+    }
+    if (request.fieldName) {
+      params.push('fieldName=' + request.fieldName)
+    }
+    if (request.sortBy) {
+      params.push('sortBy=' + request.sortBy)
+    }
+    if (request.sortOrder) {
+      params.push('sortOrder=' + request.sortOrder)
+    }
+    if (request.page && request.limit) {
+      params.push('page=' + request.page)
+      params.push('limit=' + request.limit)
+    }
+    return params.join('&')
   }
 
   create(rule: RuleModel): Observable<any> {
@@ -52,7 +67,7 @@ export class RuleService {
       .pipe(catchError(this.errorHandler));
   }
 
-  delete(id: number): Observable<any>  {
+  delete(id: number): Observable<any> {
     return this.httpClient
       .delete(this.apiURL + '/rule/' + id, this.httpOptions)
 

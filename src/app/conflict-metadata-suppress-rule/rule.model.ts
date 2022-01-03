@@ -12,3 +12,26 @@ export class RuleModel {
   email_ids: string;
   prog_alert_eml_sgk: number;
 }
+
+export class SearchResponse {
+  total_count: number;
+  rules: RuleModel[];
+}
+
+export class SearchRequest {
+  alertId?: string;
+  fieldName?: string;
+  sortBy?: string;
+  sortOrder?: string;
+  page?: number;
+  limit?: number;
+
+  constructor(alertId?: string, fieldName?: string, sortBy?: string, sortOrder?: string, page?: number, limit?: number) {
+    this.alertId = alertId;
+    this.fieldName = fieldName;
+    this.sortBy = sortBy;
+    this.sortOrder = sortOrder;
+    this.page = page;
+    this.limit = limit;
+  }
+}
